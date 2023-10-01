@@ -1,0 +1,25 @@
+
+name: FrankaDrakeSpatulaEnv
+tool_class_name: 'spatula'
+task_name: "spatula"
+contact_planner: False
+use_controller_portswitch: False
+automatic_controller_switch: False
+tool_collision_with_table: False # do not check this collision
+
+defaults:
+  - DrakeBaseConfig
+
+env:
+    init_object_x_range: [0.45, 0.55] #  0.4, 0.7
+    randomize_textures: True
+    tool_rotation_y_range: [0.8, 1.5]
+    tool_translation_z_range: [0.12, 0.15]    
+    tool_translation_x_range: [0., 0.1]    
+
+    vis_contact: True
+
+sim:
+    friction_dissipation: 5.0
+    friction_mu_static: 0.2
+    friction_mu_dynamic: 0.1   

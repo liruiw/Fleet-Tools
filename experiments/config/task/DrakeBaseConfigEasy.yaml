@@ -1,0 +1,99 @@
+name: FrankaDrakeEnv
+task_name: "" # task to do
+tool_class_name: "" # the tool class 
+render_within_coordinate_image: False
+task_completion_time: 10.  # expected time to reach the task goal pose
+replan_freq: 100. # how much time for replan
+use_impedance_controller: False # use impedance controlle instead of inverse dynamic controlle 
+use_meshcat: False # use meshcat for visualization 
+system_stochasty: True # add stochasty to each system initialization
+env_gamma: 0.99 # gamma decay for the reward in the environment
+
+# RGB images at 5Hz, with task horizons up to 60 seconds 2,000 demos typically
+expert_differentialIK: False  # differential IK instead of commanding joints
+expert_augment_goals: False    # augmenting goals in every directions
+dart_demonstration: False     # injecting noises to demonstrations
+dagger_demonstration: False   # use dagger
+masked_hybrid_policy: False
+train: True
+contact_planner: False
+reactive_planner: False
+
+switch_controller_at_contact: False # when there is contact, switch to impedance controller
+vis_collision_geometry: True # visualize collision geometry
+plot_log_joints: False # use cartesian impedance 
+pose_controller: False # use operational space pose controller 
+kinematic_trajopt: False # use kinematic trajectory optimization to post-process 
+use_controller_portswitch: False # use controller port switch
+set_testtime_camera: False
+automatic_controller_switch: False
+teleop_object_centric: False
+contact_shooting_planner: False
+skip_pose_interpolate: False
+joint_space_kpam: True # jointly solving for kpam and ik
+pose_interp_traj: False # use joint interpolation for trajopt. works better for wrench.
+random_seed: 0
+randomize_mass: False
+scene_info: {}
+cache_and_load_all_objs: False
+random_shooting_translation_noise_scale: 0.0008
+random_shooting_rotation_noise_scale: 1
+
+sim:
+    dt: 0.004 # delta time for simulation step time 
+    substep_num: 40 # dt * substep to get the environment frequency / control frequency
+    warmstart_iter: 5 # warmstart iterations to make the sim env becomes static
+    realtime_rate: 10 # ratio compared to real-time rate for simulation 
+    hydroelastic_contact: False # use hydroelastic contacts for objects 
+    discrete_contact_solver_type: "sap" # solver type [sap, tamsi] # sap breaks autodiff
+    contact_model: "hydroelastic_with_fallback" # hydroelastic contact model [point, hydroelastic, hydroelastic_with_fallback] 
+    contact_surface_representation: "polygon" #, kd=[3] * num_positions hydroelastic contact geometry representation [triangle, polygon]
+    compliant_hydroelastic_model: False # use compliant hydroelastic model
+    friction_dissipation: 5.0
+    friction_mu_static: 0.8
+    friction_mu_dynamic: 0.6
+
+env:
+    numEnvs: 1 # number of environment for running
+    episodeLength: 100 # maximal number of steps  
+    numObservations: [10, 120, 160] # dimensions of observation
+    numActions: 6 # dimension of action 
+    use_image: True  # default use image as input
+    use_keypoint: False # use tool keypoints and object keypoint as input
+    keypoint_obj_coord: False # transform the keypoints to object coordinate
+    action_worldframe: False # use action in the base frame instead of end effector local frame 
+    img_type: "RGBDM" # RGB, RGBD, RGBDM, POINTS, MPOINTS
+    cam: panda_link0_cam+panda_hand_cam # which cameras to use
+    vis_contact: False  # visualize contact in meshcat
+    vis_keypoints: True  # visualize task keypoints
+    vis_traj_keyframe: True # visualize task keyframe and goal tool pose
+    debug_obs_image: False # debug network observation 
+    randomize_textures: False # domain randomize textures
+    history_force_buffer_length: 32 # the time horizon for past force sensory inputs
+    average_history_wrench_buffer: True # act as a low-pass filter to process the history 
+    use_point_cloud_model: False # use point cloud input
+    num_points: 1024 # use point cloud input
+    fused_num_points: 1024 # use point cloud input
+    use_fused_points: False  # whether or not to fuse points and used for policy
+
+    rgb_augmentation: True # augmenting rgb data with noise and chromatic transform
+    apply_mask: True       # use only tool and object mask in the environment mask observation
+    randomize_mass: False  # randomize mass parameters 
+    debug_contacts: False  # print contact informaiton
+    mask_tool_points: False # use only object point for the observation
+
+    # domain randomization
+    randomize_init_eff: True  # randomize initial end effector pose
+    randomize_physics: False  # randomize friction etc 
+    randomize_tool_pose: True # randomize the relative pose of the tool
+    randomize_obj_pose: False # randomize the relative pose of the tool 
+
+    init_endeffector_range: [0.5, 0.7] # end effector distance to the object 
+    init_object_x_range: [ 0.4, 0.7] # the x coordinates of the initial pose
+    init_object_y_range: [-0.2, 0.2] # the y coordinates of the initial object pose
+    init_joints: [0.0, -1.285, 0, -2.356, 0.0, 1.571, 0.785, 0.04, 0.04] # initial joints
+    controller_gains: [50, 1, 10] # used in inverse dynamic controller 
+    preprocess: concat_two_views 
+    action_scale: [0.04, 0.4]
+    tool_translation_z_range: [0.1, 0.2] 
+    tool_rotation_y_range: [1.07, 1.57]

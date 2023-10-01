@@ -1,0 +1,25 @@
+<sdf xmlns:drake="drake.mit.edu" version="1.5">
+  <model name="wrench_model12">
+    <link name="wrench_model12_body_link">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <mass>1.8121E-04</mass>
+        <inertia>
+          <ixx>2.7060E-07</ixx>
+          <ixy>0.0000E+00</ixy>
+          <ixz>0.0000E+00</ixz>
+          <iyy>2.6097E-07</iyy>
+          <iyz>0.0000E+00</iyz>
+          <izz>1.0909E-08</izz>
+        </inertia>
+      </inertial>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model12.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

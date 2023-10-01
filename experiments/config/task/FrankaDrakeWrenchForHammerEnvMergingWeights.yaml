@@ -1,0 +1,36 @@
+defaults:
+  - DrakeBaseConfig
+  
+name: FrankaDrakeHammerEnv
+
+# use wrench to do the hammer task
+tool_class_name: 'wrench'
+task_name: "hammer"
+
+task_completion_time: 12.  # expected time to reach the task goal pose
+reactive_planner: False # True
+
+
+tool_fix_idx: 1 # whether to fix which tool to use
+tool_obj_fix_idx: 0 # whether to fix which tool to use
+    
+sim:
+    dt: 0.004 # delta time for simulation step time 
+    substep_num: 60
+
+
+env:
+  randomize_init_eff: False # the pose trajectory initialization is bad
+  vis_keypoints: True
+  episodeLength: 70 # maximal number of steps  
+  vis_contact: False
+  use_image: False
+  
+  # controller_gains: [100, 1, 20]
+  tool_rotation_y_range: [0.8, 1.5]
+  tool_translation_z_range: [0.12, 0.15] 
+  init_object_x_range: [0.45, 0.55] #  0.4, 0.7
+     
+  use_point_cloud_model: True
+  
+

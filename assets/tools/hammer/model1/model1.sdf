@@ -1,0 +1,42 @@
+<sdf xmlns:drake="drake.mit.edu" version="1.5">
+  <model name="hammer_model1">
+    <link name="hammer_model1_body_link">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <mass>1.7077E-06</mass>
+        <inertia>
+          <ixx>3.7834E-09</ixx>
+          <ixy>-3.4990E-13</ixy>
+          <ixz>5.1402E-11</ixz>
+          <iyy>3.8931E-09</iyy>
+          <iyz>1.7171E-11</iyz>
+          <izz>2.1803E-10</izz>
+        </inertia>
+      </inertial>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model1_corr.obj</uri>
+            <scale>1.0000E+00 1.0000E+00 1.0000E+00</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="collision_0000">
+        <geometry>
+          <mesh>
+            <uri>model1_parts/model1_convex_piece_000.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="collision_0001">
+        <geometry>
+          <mesh>
+            <uri>model1_parts/model1_convex_piece_001.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

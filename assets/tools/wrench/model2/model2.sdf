@@ -1,0 +1,49 @@
+<sdf xmlns:drake="drake.mit.edu" version="1.5">
+  <model name="wrench_model2">
+    <link name="wrench_model2_body_link">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <mass>1.7087E-04</mass>
+        <inertia>
+          <ixx>2.3253E-07</ixx>
+          <ixy>0.0000E+00</ixy>
+          <ixz>0.0000E+00</ixz>
+          <iyy>2.2535E-07</iyy>
+          <iyz>0.0000E+00</iyz>
+          <izz>7.7792E-09</izz>
+        </inertia>
+      </inertial>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model2_corr.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="collision_0000">
+        <geometry>
+          <mesh>
+            <uri>model7_parts/model7_convex_piece_000.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="collision_0001">
+        <geometry>
+          <mesh>
+            <uri>model7_parts/model7_convex_piece_001.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="collision_0002">
+        <geometry>
+          <mesh>
+            <uri>model7_parts/model7_convex_piece_002.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

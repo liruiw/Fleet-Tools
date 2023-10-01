@@ -1,0 +1,90 @@
+<sdf xmlns:drake="drake.mit.edu" version="1.5">
+  <model name="camera">
+    <link name="camera_body_link">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <mass>7.7359E-06</mass>
+        <inertia>
+          <ixx>2.5310E-09</ixx>
+          <ixy>-3.5566E-10</ixy>
+          <ixz>-2.2691E-11</ixz>
+          <iyy>2.4215E-09</iyy>
+          <iyz>2.2827E-11</iyz>
+          <izz>8.4870E-10</izz>
+        </inertia>
+      </inertial>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>camera.obj</uri>
+            <scale>1.0000E+00 1.0000E+00 1.0000E+00</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="collision_0000">
+        <geometry>
+          <mesh>
+            <uri>camera_parts/camera_convex_piece_000.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="collision_0001">
+        <geometry>
+          <mesh>
+            <uri>camera_parts/camera_convex_piece_001.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="collision_0002">
+        <geometry>
+          <mesh>
+            <uri>camera_parts/camera_convex_piece_002.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="collision_0003">
+        <geometry>
+          <mesh>
+            <uri>camera_parts/camera_convex_piece_003.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="collision_0004">
+        <geometry>
+          <mesh>
+            <uri>camera_parts/camera_convex_piece_004.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="collision_0005">
+        <geometry>
+          <mesh>
+            <uri>camera_parts/camera_convex_piece_005.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="collision_0006">
+        <geometry>
+          <mesh>
+            <uri>camera_parts/camera_convex_piece_006.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="collision_0007">
+        <geometry>
+          <mesh>
+            <uri>camera_parts/camera_convex_piece_007.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

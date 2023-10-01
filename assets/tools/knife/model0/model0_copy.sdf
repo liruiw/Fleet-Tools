@@ -1,0 +1,66 @@
+<sdf xmlns:drake="drake.mit.edu" version="1.5">
+  <model name="knife_model0">
+    <link name="knife_model0_body_link_2">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <mass>2.6636E-06</mass>
+        <inertia>
+          <ixx>2.9872E-09</ixx>
+          <ixy>3.4799E-14</ixy>
+          <ixz>7.2734E-10</ixz>
+          <iyy>3.5633E-09</iyy>
+          <iyz>1.3112E-13</iyz>
+          <izz>6.3918E-10</izz>
+        </inertia>
+      </inertial>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model0_corr.obj</uri>
+            <scale>1.0000E+00 1.0000E+00 1.0000E+00</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="collision_0000">
+        <geometry>
+          <mesh>
+            <uri>model0_parts/model0_convex_piece_000.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="collision_0001">
+        <geometry>
+          <mesh>
+            <uri>model0_parts/model0_convex_piece_001.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="collision_0002">
+        <geometry>
+          <mesh>
+            <uri>model0_parts/model0_convex_piece_002.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="collision_0003">
+        <geometry>
+          <mesh>
+            <uri>model0_parts/model0_convex_piece_003.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="collision_0004">
+        <geometry>
+          <mesh>
+            <uri>model0_parts/model0_convex_piece_004.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

@@ -1,0 +1,16 @@
+name: FrankaDrakeKnifeEnv
+tool_class_name: 'knife'
+task_name: "knife"
+tool_collision_with_table: False # do not check this collision
+
+defaults:
+  - DrakeBaseConfig
+
+env:
+    init_object_x_range: [0.3, 0.5] #  
+    randomize_textures: True 
+    tool_rotation_y_range: [-0.2, 0.2]
+    tool_translation_z_range: [0.18, 0.2]        
+
+sim:
+  warmstart_iter: 30

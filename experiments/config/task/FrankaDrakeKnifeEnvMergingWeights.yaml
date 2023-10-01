@@ -1,0 +1,34 @@
+defaults:
+  - DrakeBaseConfig
+  
+name: FrankaDrakeKnifeEnv
+tool_class_name: 'knife'
+task_name: "knife"
+task_completion_time: 12.  # expected time to reach the task goal pose
+reactive_planner: False # True
+tool_fix_idx: 1 # whether to fix which tool to use
+pose_controller: True  # False    
+
+sim:
+    dt: 0.001 # delta time for simulation step time 
+    substep_num: 160
+    hydroelastic_contact: True
+    contact_surface_representation: "triangle"
+    discrete_contact_solver_type: "tamsi"
+
+env:
+  episodeLength: 120 # maximal number of steps       
+  randomize_init_eff: True # the pose trajectory initialization is bad
+  vis_keypoints: True
+  vis_contact: False
+  use_image: False
+  
+  # controller_gains: [100, 1, 20]
+  tool_translation_z_range: [0.12, 0.17] 
+  init_object_x_range: [0.45, 0.55] #  0.4, 0.7
+  tool_rotation_y_range: [0.8, 1.5]  
+  # tool_rotation_x_range: [1.55, 1.57]
+
+  init_joints: [0.0, -1.285, 0, -2.356, 0.0, 1.571, 0.785, 0.04, 0.04] # initial joints     
+  use_point_cloud_model: True
+  

@@ -1,0 +1,31 @@
+defaults:
+  - DrakeBaseConfig
+  
+name: FrankaDrakeWrenchEnv
+tool_class_name: 'wrench'
+task_name: "wrench"
+task_completion_time: 10.  # expected time to reach the task goal pose
+reactive_planner: False # True
+# use_controller_portswitch: True
+# automatic_controller_switch: True
+pose_controller: True # False
+tool_fix_idx: 4
+
+sim:
+    dt: 0.004 # delta time for simulation step time 
+    substep_num: 80
+
+env:
+  episodeLength: 120 # maximal number of steps  
+  randomize_init_eff: True
+  vis_keypoints: False
+  vis_contact: False
+  init_joints: [2.5, 0.23, -2.89, -1.69, 0.056, 1.46, -1.27, 0, 0]
+  use_image: False
+
+  # controller_gains: [100, 1, 20]
+  tool_rotation_y_range: [1.56, 1.57]
+  tool_translation_z_range: [0.1, 0.2]
+  init_object_x_range: [0.45, 0.55]  
+  use_point_cloud_model: True  
+

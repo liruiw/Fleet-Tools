@@ -1,0 +1,53 @@
+category_name: hammer
+constraint_list:
+# attach the tool head with the object
+- keypoint_idx: 0
+  keypoint_name: tool_head
+  target_position: [0, 0, 0]
+  tolerance: 0.0001
+  type: point2point_constraint
+
+# make sure axis alignment
+- axis_from_keypoint_idx: 0  
+  axis_from_keypoint_name: tool_head 
+  axis_to_keypoint_idx: 1
+  axis_to_keypoint_name: tool_tail
+  target_axis: [0, 0, 1.0]
+  tolerance: 0.001
+  target_inner_product: 1
+  type: keypoint_axis_alignment
+
+
+# make sure axis alignment
+- axis_from_keypoint_idx: 0
+  axis_from_keypoint_name: tool_head
+  axis_to_keypoint_idx: 2
+  axis_to_keypoint_name: tool_side
+  target_axis: [0, 0, 1.0]
+  tolerance: 0.1
+  type: keypoint_axis_orthogonal
+  target_inner_product: 0
+
+# minimize movement  
+cost_list:
+- keypoint_idx: 0
+  keypoint_name: tool_head
+  penalty_weight: 1.0
+  target_position: [0., 0., 0.]
+  type: point2point_cost
+
+- keypoint_idx: 1
+  keypoint_name: tool_tail
+  penalty_weight: 1.0
+  target_position: [0., 0., 0.]
+  type: point2point_cost  
+
+- keypoint_idx: 2
+  keypoint_name: tool_side
+  penalty_weight: 1.0
+  target_position: [0., 0., 0.]
+  type: point2point_cost  
+
+keypoint_name_list: [tool_head, tool_tail, tool_side]
+keypoint_nominal_target_position: {}
+task_name: hammer

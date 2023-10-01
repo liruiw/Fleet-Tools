@@ -1,0 +1,28 @@
+defaults:
+  - DrakeBaseConfig
+  
+name: FrankaDrakeHammerEnv
+tool_class_name: 'hammer'
+task_name: "hammer"
+task_completion_time: 10.  # expected time to reach the task goal pose
+tool_fix_idx: 0 # whether to fix which tool to use
+pose_controller: False  # False    
+
+sim:
+    dt: 0.004 # delta time for simulation step time 
+    substep_num: 80
+
+env:
+  episodeLength: 120 # maximal number of steps   
+  randomize_init_eff: True # the pose trajectory initialization is bad
+  vis_keypoints: False
+  vis_contact: False
+  use_image: False
+  
+  # controller_gains: [100, 1, 20]
+  tool_translation_z_range: [0.1, 0.2] 
+  tool_rotation_y_range: [1.07, 1.57]
+  use_point_cloud_model: True
+  init_object_x_range: [ 0.4, 0.7] 
+  init_joints: [0.0, -1.285, 0, -2.356, 0.0, 1.571, 0.785, 0.04, 0.04] # initial joints
+

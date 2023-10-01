@@ -1,0 +1,58 @@
+# Task name - used to pick the class to load
+task_name: 'Franka'
+experiment: ''
+
+# if set to positive integer, overrides the default number of environments
+
+# seed - set to -1 to choose random seed
+torch_deterministic: False
+eval: False
+
+# in original args.py
+env_name: FrankaDrakeSpatulaEnv
+logdir: runs
+logdir_suffix: ""
+cuda: Falsecp
+teleop: False # use teleop
+seed: 123456
+agent: Agent
+save_demo_suffix: ""
+expert: "AnalyticExpert"
+run_expert: False
+num_envs: 1 # number of environments
+log_freq: 100 # log frequency
+render: False
+teleop_type: keyboard
+visdom: False # use visdom
+meshcat: False # use meshcat
+num_steps: 100000 # maximum number of timesteps
+load_pretrained_model: False # pretrained policy or representation to load
+num_episode: 300 # maximum number of episodes
+pretrained: ""
+num_workers: 2 # number of workers for dataset
+demo_number: 5000 # number of demonstrations needed
+train_task: "" # the train / eval task
+num_train_steps: 10000 # maximum number of training timesteps (default: 10000)
+test_on_train_scenes: True # load the training scenes for testing
+training: False # training from offline data
+save_demonstrations: False # saving the training scenes for testing
+record_video: False # record video fro either expert rollout or policy rollout
+load_demonstrations: False # load demonstration data
+config_suffix:  "" # suffix for the training / env config
+demonstration_dir: "" # the directory where demonstrations are stored
+fixed_encoder:  False
+start_episode_position: 0 # loaded episode position for the replay buffer
+save_dir:  ""
+eval_save_video: True # save the overhead view video
+reinit_num: 1000 # number of rounds before reiniting ray
+max_episodes: 50
+
+# newly edited
+parallel: False
+actor_wrapper: ''
+max_memory: 2400
+cpu_only: False
+
+defaults:
+  - task: Franka
+  - train: FrankaDrakeEnv
