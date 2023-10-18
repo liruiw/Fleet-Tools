@@ -23,3 +23,5 @@ drake
 gym
 hydra
 hydra-core==1.3
+pyglet
+trimesh
