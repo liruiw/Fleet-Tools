@@ -1,0 +1,68 @@
+<sdf xmlns:drake="drake.mit.edu" version="1.5">
+  <model name="model0">
+    <link name="model0_body_link_2">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <mass>9.8616E-03</mass>
+        <inertia>
+          <ixx>2.4471E-06</ixx>
+          <ixy>0.0000E+00</ixy>
+          <ixz>0.0000E+00</ixz>
+          <iyy>2.4470E-06</iyy>
+          <iyz>0.0000E+00</iyz>
+          <izz>4.3837E-06</izz>
+        </inertia>
+      </inertial>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model0_corr.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="collision_0000">
+        <geometry>
+          <mesh>
+            <uri>model0_parts/model0_convex_piece_000.obj</uri>
+            <drake:declare_convex/>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="minus_x_lower_left_corner">
+        <pose> 0.02 0.02 -0.015 0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>1e-7</radius>
+          </sphere>
+        </geometry>
+      </collision>
+
+      <collision name="minus_x_lower_right_corner">
+        <pose> -0.02 0.02  -0.015  0 0 0 </pose>
+        <geometry>
+          <sphere>
+            <radius>1e-7</radius>
+          </sphere>
+        </geometry>
+      </collision>
+
+      <collision name="plus_x_lower_left_corner">
+        <pose> 0.02 -0.02  -0.015 0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>1e-7</radius>
+          </sphere>
+        </geometry>
+      </collision>
+
+      <collision name="plus_x_lower_right_corner">
+        <pose> -0.02 -0.02 -0.015 0 0 0 </pose>
+        <geometry>
+          <sphere>
+            <radius>1e-7</radius>
+          </sphere>
+        </geometry>
+      </collision>     
+    </link>
+  </model>
+</sdf>

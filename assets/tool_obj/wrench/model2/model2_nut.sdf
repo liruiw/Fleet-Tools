@@ -1,0 +1,42 @@
+<sdf xmlns:drake="drake.mit.edu" version="1.5">
+  <model name="model2_nut">
+    <link name="model2_nut_body_link">
+      <pose>0 0 0 0 0 0</pose>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model2_nut_corr.obj</uri>
+            <scale>2 2 2</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="collision_0000">
+        <geometry>
+        <box> 
+          <size>0.01 0.01 0.01</size>
+        </box>
+        </geometry>
+      </collision>
+      <collision name="collision_0001">
+        <pose>0 0 0 0 0 0.78539</pose>
+        <geometry>
+        <box> 
+          <size>0.01 0.01 0.01</size>
+        </box>
+        </geometry>
+      </collision>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.02</mass>
+        <inertia>
+          <ixx>1.1e-6</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1.1e-6</iyy>
+          <iyz>0</iyz>
+          <izz>1.1e-6</izz>
+        </inertia>
+      </inertial>
+    </link>
+  </model>
+</sdf>
