@@ -118,7 +118,9 @@ def AddRgbdSensors(
         renderer = "my_renderer"
 
     if not scene_graph.HasRenderer(renderer):
-        scene_graph.AddRenderer(renderer, MakeRenderEngineVtk(RenderEngineVtkParams()))
+        scene_graph.AddRenderer(
+            renderer, MakeRenderEngineVtk(RenderEngineVtkParams(default_diffuse=(0.5, 0.5, 0.5, 1)))
+        )
 
     if not depth_camera:
         depth_camera = DepthRenderCamera(

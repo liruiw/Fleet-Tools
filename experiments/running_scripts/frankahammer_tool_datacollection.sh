@@ -14,7 +14,7 @@ python -m core.run cuda=True render=True env_name=FrankaDrakeHammerEnv num_envs=
 		  save_demonstrations=True start_episode_position=0 num_workers=0 task=FrankaDrakeHammerEnvMergingWeights \
 		  train=FrankaDrakeEnv save_demo_suffix=tool_${TOOL_IDX} task.tool_fix_idx=$TOOL_IDX  max_episodes=30000 \
 		  task.env.randomize_camera_extrinsics=True  record_video=True +task.data_collection=True 
-python -m misc.collapse_dataset  -e hammerforhammer --tool $TOOL_IDX
+python -m scripts.collapse_dataset  -e hammerforhammer --tool $TOOL_IDX
 
 done
 wait

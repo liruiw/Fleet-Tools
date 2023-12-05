@@ -1,7 +1,6 @@
 # Fleet-Tools
 
-[Arxiv]() 
-<!-- | [Video]() -->
+[Arxiv](https://arxiv.org/abs/2310.01362)  [Website](https://liruiw.github.io/fleet/) 
 
 This repo is the simulation environment benchmark built with Gym API and Drake simulations for Franka Panda. The repository features tool-use tasks with scripted experts.
 

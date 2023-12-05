@@ -87,6 +87,7 @@ class ActorWrapper:
     def add_trajectory_transition(self, scene_info):
         """add the full trajectory into the memory"""
         save_demo = True
+        # print("save data")
         if self.parallel:
             # should be blocking
             success = ray.get(

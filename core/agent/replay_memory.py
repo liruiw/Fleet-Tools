@@ -72,6 +72,7 @@ class ReplayMemory:
                     kwargs[key] = np.concatenate(kwargs[key], axis=-1)
                 if not self.task_config.env.use_image:  # dummy
                     kwargs[key] = 0.0
+
             try:
                 getattr(self, key)[self.position] = kwargs[key]
             except Exception as e:  # would be overwrite
@@ -88,6 +89,7 @@ class ReplayMemory:
         timestep = self.timestep[self.position]
         reward = self.reward[self.position]
         self.pos_idx[self.position] = float(reward > 0.5)
+        # print("timestep:", timestep)
 
         if timestep == 0:
             # print("increments index.")
@@ -156,6 +158,7 @@ class ReplayMemory:
         prev_episode_idx = np.where(self.episode_positions[: self.position] == episode_idx)[0]
 
         # skip the first episode due to boundary issues
+        # print(prev_episode_idx)
         if len(prev_episode_idx) == 0 or prev_episode_idx[0] == 0 or prev_episode_idx[-1] == self.capacity - 1:
             # check the last episode step and first episode step
             print("skip empty traj")
@@ -164,6 +167,7 @@ class ReplayMemory:
         saved_path = os.path.join(saved_path, "episode_{}".format(episode_idx))
         mkdir_if_missing(saved_path)
 
+        # IPython.embed()
         color_print(
             (f"saving episode {prev_episode_idx} | path: {saved_path}"),
             "light_slate_blue",
@@ -175,30 +179,32 @@ class ReplayMemory:
             images = self.obs[prev_episode_idx]
             data = {k: getattr(self, k)[prev_episode_idx] for k in key_list if k != "obs"}
             data["episode_positions"] = self.episode_positions
+            # print("obs shape:", data["obs"].shape)
+            # data["overhead_image"] = data["obs"][...,:5]
             data["obs"] = [f"{saved_path}/{i}" for i in range(len(prev_episode_idx))]
+
             np.savez(os.path.join(saved_path, "traj_data.npz"), **data)
 
-            if self.task_config.env.use_image:
-                for i, img in enumerate(images):
-                    overhead_img, wrist_img = img[..., :5], img[..., 5:]
-                    cv2.imwrite(
-                        f"{saved_path}/{i}_wrist_color.png",
-                        (wrist_img[:, :, [2, 1, 0]] * 255).astype(np.uint8),
-                    )
-                    cv2.imwrite(
-                        f"{saved_path}/{i}_wrist_depth.png",
-                        (wrist_img[..., [3]] * 1000).astype(np.uint16),
-                    )
-                    cv2.imwrite(f"{saved_path}/{i}_wrist_mask.png", wrist_img[..., [4]])
-                    cv2.imwrite(
-                        f"{saved_path}/{i}_overhead_color.png",
-                        (overhead_img[:, :, [2, 1, 0]] * 255).astype(np.uint8),
-                    )
-                    cv2.imwrite(
-                        f"{saved_path}/{i}_overhead_depth.png",
-                        (overhead_img[..., [3]] * 1000).astype(np.uint16),
-                    )
-                    cv2.imwrite(f"{saved_path}/{i}_overhead_mask.png", overhead_img[..., [4]])
+            # for i, img in enumerate(images):
+            #     overhead_img, wrist_img = img[..., :5], img[..., 5:]
+            #     cv2.imwrite(
+            #         f"{saved_path}/{i}_wrist_color.png",
+            #         (wrist_img[:, :, [2, 1, 0]] * 255).astype(np.uint8),
+            #     )
+            #     cv2.imwrite(
+            #         f"{saved_path}/{i}_wrist_depth.png",
+            #         (wrist_img[..., [3]] * 1000).astype(np.uint16),
+            #     )
+            #     cv2.imwrite(f"{saved_path}/{i}_wrist_mask.png", wrist_img[..., [4]])
+            #     cv2.imwrite(
+            #         f"{saved_path}/{i}_overhead_color.png",
+            #         (overhead_img[:, :, [2, 1, 0]] * 255).astype(np.uint8),
+            #     )
+            #     cv2.imwrite(
+            #         f"{saved_path}/{i}_overhead_depth.png",
+            #         (overhead_img[..., [3]] * 1000).astype(np.uint16),
+            #     )
+            #     cv2.imwrite(f"{saved_path}/{i}_overhead_mask.png", overhead_img[..., [4]])
             return True
 
         except Exception as e:  # would be overwrite

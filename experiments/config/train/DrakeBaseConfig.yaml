@@ -2,7 +2,7 @@ seed: 0
 log_freq: 10
 save_model_freq: 1000
 input_type: 'image'
-replaybuffer_size: 400 # just need to be the max length of a trajectory for saving demonstrations
+replaybuffer_size: 500 # just need to be the max length of a trajectory for saving demonstrations
 train_frequency: 1 # how many environment iterations for a training iteration
 feature_extractor: resnet18 # which feature extractor
 train_repr: False 

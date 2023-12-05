@@ -12,7 +12,7 @@ env_gamma: 0.99 # gamma decay for the reward in the environment
 # RGB images at 5Hz, with task horizons up to 60 seconds 2,000 demos typically
 expert_differentialIK: False  # differential IK instead of commanding joints
 expert_augment_goals: False    # augmenting goals in every directions
-dart_demonstration: True     # injecting noises to demonstrations
+dart_demonstration: False     # injecting noises to demonstrations
 dagger_demonstration: False   # use dagger
 masked_hybrid_policy: False
 train: True
@@ -88,7 +88,7 @@ env:
     vis_keypoints: True  # visualize task keypoints
     vis_traj_keyframe: True # visualize task keyframe and goal tool pose
     debug_obs_image: False # debug network observation 
-    randomize_textures: False # domain randomize textures
+    randomize_textures: True # domain randomize textures
     history_force_buffer_length: 32 # the time horizon for past force sensory inputs
     average_history_wrench_buffer: True # act as a low-pass filter to process the history 
     use_point_cloud_model: True # use point cloud input

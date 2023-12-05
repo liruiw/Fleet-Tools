@@ -89,6 +89,8 @@ key_list = [
     "point_cloud",
     "tool_rel_pose",
     "img_feature",
+    "overhead_image",
+    "wrist_image",
 ]
 
 key_shape_list = [
@@ -114,6 +116,8 @@ key_shape_list = [
     (4, 1024),
     (4, 4),
     (384,),
+    (128, 128, 3),
+    (128, 128, 3),
 ]
 
 

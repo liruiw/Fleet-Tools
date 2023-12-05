@@ -69,7 +69,7 @@ def FindResource(filename):
 def AddFranka(plant, collision_model="no_collision"):
     """Add the default franka panda robot to the scene. its origin is also the origin of the scene"""
 
-    franka_combined_path = FindResource("models/panda_arm_hand.urdf")
+    franka_combined_path = "env/models/panda_arm_hand.urdf"
     parser = Parser(plant)
     franka = parser.AddModelFromFile(franka_combined_path)
     plant.WeldFrames(plant.world_frame(), plant.GetFrameByName("panda_link0"))

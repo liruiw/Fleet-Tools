@@ -53,11 +53,11 @@ class FrankaDrakeHammerEnv(FrankaDrakeEnv):
 
         return obs, reward, done, self.info
 
-    def check_collision_name(self, body_a_name, body_b_name):
-        collision = super().check_collision_name(body_a_name, body_b_name)
-        # anything hitting the table or the box would mean failure.
-        table_collision = "link" == body_a_name or "link" == body_b_name
-        return collision or table_collision
+    # def check_collision_name(self, body_a_name, body_b_name):
+    #     collision = super().check_collision_name(body_a_name, body_b_name)
+    #     # anything hitting the table or the box would mean failure.
+    #     table_collision = "link" == body_a_name or "link" == body_b_name
+    #     return collision or table_collision
 
     def _get_obs(self, context, render=True):
         from env.env_object_related import extra_force_system

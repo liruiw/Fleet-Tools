@@ -48,7 +48,7 @@ parser.add_argument("--env_name", "-e", type=str, default="wrench")
 parser.add_argument("--tool_idx", "-t", type=int, default=1)
 parser.add_argument("--max_num", type=int, default=100000)
 parser.add_argument("--output_path", "-o", type=str, default="assets/demonstrations/processed")
-parser.add_argument("--processed_output_path", type=str, default="../metaworld_weights/data/demo_drake/")
+parser.add_argument("--processed_output_path", type=str, default="data/demo_drake/")
 
 args = parser.parse_args()
 
@@ -61,7 +61,7 @@ mkdir_if_missing(output_path)
 TEST_EPS_NUM = 200
 
 # read the offline folder and just save state / action
-episode_dirs = sorted(os.listdir(saved_path), key=lambda s: int(s.split("_")[1]))[:-TEST_EPS_NUM]
+episode_dirs = sorted(os.listdir(saved_path), key=lambda s: int(s.split("_")[1]))  # [:-TEST_EPS_NUM]
 # note! the last ten is used for testing
 MAX_NUM = args.max_num
 USE_IMAGE = False
@@ -74,6 +74,8 @@ traj_datas["task_name"] = []
 for path in episode_dirs:
     curr_num = len(images)
     episode_path = os.path.join(saved_path, path)
+    print(path)
+
     if "traj_data.npz" in os.listdir(episode_path):
         traj_data = np.load(os.path.join(episode_path, "traj_data.npz"))
         traj_data = dict(traj_data)
@@ -84,7 +86,7 @@ for path in episode_dirs:
         traj_data["task_name"] = [saved_path[saved_path.find("for") + len("for") : saved_path.rfind("tool")]] * len(
             traj_data["action"]
         )
-
+        # print(traj_data['action'].shape)
         try:
             traj_datas = {
                 k: np.concatenate((traj_datas[k], v), axis=0) if k in traj_datas else v for k, v in traj_data.items()
@@ -133,6 +135,8 @@ key_list = [
     "point_cloud",
     "tool_rel_pose",
     "img_feature",
+    "overhead_image",
+    "wrist_image",
 ]
 
 # for idx, combined_pc in enumerate(traj_datas["point_cloud"][::100]):
@@ -150,15 +154,19 @@ data_dict = {
     "task_name": traj_datas["task_name"],
     "object_name": traj_datas["object_name"],
 }
+traj_datas["tool_name"] = traj_datas["tool_name"]
+traj_datas["task_name"] = traj_datas["task_name"]
+traj_datas["object_name"] = traj_datas["object_name"]
 
-for key in key_list:
-    data_dict[key] = traj_datas[key]
+# remove one copy
+# for key in key_list:
+#    data_dict[key] = traj_datas[key]
 
-np.savez(f"{ output_path}/demo_state.npz", **data_dict)
+np.savez(f"{ output_path}/demo_state.npz", **traj_datas)
 print("saving offline dataset on:", f"{output_path}/demo_state.npz")
 output_path2 = f"{args.processed_output_path}/FrankaDrake{args.env_name.capitalize()}Env-Tool{args.tool_idx}"
 mkdir_if_missing(f"{output_path2}/")
 
 # save in two places
-np.savez(f"{output_path2}/demo_state.npz", **data_dict)
+np.savez(f"{output_path2}/demo_state.npz", **traj_datas)
 print("saving offline dataset on:", f"{ output_path2}/demo_state.npz")

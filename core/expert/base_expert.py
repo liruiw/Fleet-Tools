@@ -87,32 +87,6 @@ class TaskExpert:
     def __init__(self, envs, args, cfg, robot_id=-1):
         self.actuation_time = 3.0
 
-    def make_vector_vis(self, path, vector, position, color):
-        from env.env_util import meshcat
-
-        length_scale = 3
-        radius = 0.001
-        opacity = 1.0
-        vector_norm = np.linalg.norm(vector)
-        vector_dir = vector / vector_norm
-        transform = RigidTransform()
-        test_vec = np.array([0, 0, 1])
-        rot_vec_1 = np.cross(test_vec, vector_dir)
-        rot_vec_2 = np.cross(vector_dir, rot_vec_1)
-        rot_matrix = np.stack([rot_vec_2, rot_vec_1, vector_dir], axis=1)
-        transform.set_rotation(RotationMatrix(rot_matrix))
-        transform.set_translation(position)
-
-        AddMeshcatVector(
-            meshcat,
-            path + "_feedforward",
-            Rgba(*color),
-            length=length_scale * vector_norm,
-            radius=radius,
-            opacity=opacity,
-            X_PT=transform,
-        )
-
     def generate_spatula_poses(self, reach_ratio=0.3, reach_dist=0.2):
         """hard-coded post-activation trajectory:
         (1) reach to the pre-actuation

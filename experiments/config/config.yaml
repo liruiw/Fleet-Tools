@@ -32,7 +32,6 @@ pretrained: ""
 num_workers: 2 # number of workers for dataset
 demo_number: 5000 # number of demonstrations needed
 train_task: "" # the train / eval task
-num_train_steps: 10000 # maximum number of training timesteps (default: 10000)
 test_on_train_scenes: True # load the training scenes for testing
 training: False # training from offline data
 save_demonstrations: False # saving the training scenes for testing

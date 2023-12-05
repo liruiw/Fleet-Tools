@@ -91,7 +91,7 @@ def run_episode(robot):
             animation = visualizer.StartRecording(set_transforms_while_recording=False)
 
     total_rewards, total_lengths, scene_descriptions = [], [], []
-
+    print(robot.config.num_episode, robot.config.max_episodes)
     while fleet_steps < robot.config.num_episode:
         # load weights
         if robot.config.parallel:
@@ -143,6 +143,7 @@ def run_episode(robot):
             robot = reinit(robot)
 
         fleet_steps += 1
+        print("curr eps:", saved_episodes, fleet_steps)
         if saved_episodes > robot.config.max_episodes:
             break
 

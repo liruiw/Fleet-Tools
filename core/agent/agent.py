@@ -27,12 +27,9 @@ class Agent(object):
         self.logdir = logdir
         self.device = "cuda"
         self.agent_id = agent_id
-        self.image_input = config.task.env.use_image
-        self.keypoint_input = config.task.env.use_keypoint
 
         self.log_freq = config.log_freq
         self.batch_size = config.train.learn.minibatches
-        self.latent_size = config.train.policy.latent_size
 
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=config.train.numObservations)
         self.action_space = PandaTaskSpace6D(*config.task.env.action_scale)  # action_space(config.task.env.numActions)
@@ -111,6 +108,7 @@ class Agent(object):
                     info["obs"] = obs
                     info["done"] = done
                 success = self.memory.push(**info)
+                # print("push:", success)
                 if not success:
                     print("push failed")
                     status = False
