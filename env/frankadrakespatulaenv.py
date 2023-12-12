@@ -65,7 +65,7 @@ class FrankaDrakeSpatulaEnv(FrankaDrakeEnv):
         """spatula environment reward is based on if the object is lifted with the spatula"""
         obj_pose = self._get_object_pose(context)
         obj_rot = mat2euler(obj_pose[:3, :3])
-        reward = float((np.abs(obj_rot[0]) > np.pi / 2.0 - 0.2))
+        reward = float(obj_pose[2, 3] > self.table_height + 0.05)
         return reward
 
     def _get_progress(self, context):

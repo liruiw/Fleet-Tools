@@ -14,14 +14,6 @@ from pydrake.all import BoundingBoxConstraint
 
 # imports for the pose sliders
 from collections import namedtuple
-from pydrake.all import AbstractValue
-from pydrake.all import RollPitchYaw, RigidTransform, RotationMatrix
-from pydrake.all import LeafSystem, PublishEvent
-
-# imports for the joint sliders
-from pydrake.all import JointIndex
-from pydrake.all import PublishEvent, VectorSystem
-
 from pydrake.all import *
 
 # Some GUI code that will be moved into Drake.

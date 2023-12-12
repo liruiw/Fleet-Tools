@@ -29,10 +29,3 @@ env:
     realtime_rate: 1 # ratio compared to real-time rate for simulation 
     action_scale: [0.2, 1.0]
     vis_contact: True
-
-    # action_scale: [0.3, 0.3] # small or big
-    # controller_gains: [50, 1, 5] 
-    # vis_keypoints: False
-    # vis_traj_keyframe: False
- 
-    

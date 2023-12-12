@@ -4,7 +4,7 @@
 
 This repo is the simulation environment benchmark built with Gym API and Drake simulations for Franka Panda. The repository features tool-use tasks with scripted experts.
 
-![](assets/doc/tooluse_fig.png)
+![](assets/doc/policycomp.gif)
 
 
 ## ⚙️ Installation
@@ -37,12 +37,11 @@ Hold the trigger for moving.
 └── ...
 ```
 
-![](assets/doc/realsetup.png)
+![](assets/doc/sim.gif)
 
 ## 🎛️ Note
 0. **Code Quality Level**: Tired grad student. 
 1. **Have Questions**: Open Github issues or send an email. 
-2. **Drake and Simulation Issues**: Ask in the [Drake](https://github.com/RobotLocomotion/drake) github repo or look for answers in the [API](https://drake.mit.edu/doxygen_cxx/index.html).
 
 ## License
 MIT
