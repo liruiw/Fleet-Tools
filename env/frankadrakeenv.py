@@ -738,10 +738,10 @@ class FrankaDrakeEnv(BaseDrakeRobotEnv):
         self.info["timestep"] = self.time_step
         self.info["task_name"] = self.task_config.task_name
         self.info["success"] = self._get_reward(self.context, self.action) > 0
-        self.info["overhead_image"] = cv2.resize(self.img_obs[0][..., :3], (128, 128))
+        self.info["overhead_image"] = cv2.resize(self.img_obs[0][..., :3], (512, 512))
         self.info["overhead_image"] = (self.info["overhead_image"] * 255).astype(np.uint8)
 
-        self.info["wrist_image"] = cv2.resize(self.img_obs[1][..., :3], (128, 128))
+        self.info["wrist_image"] = cv2.resize(self.img_obs[1][..., :3], (512, 512))
         self.info["wrist_image"] = (self.info["wrist_image"] * 255).astype(np.uint8)
 
         if hasattr(self, "tool_class_name"):

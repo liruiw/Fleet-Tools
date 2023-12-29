@@ -3,7 +3,6 @@ import warnings
 
 warnings.simplefilter("ignore")
 
-from experiments.args import get_parser
 import os.path as osp
 from core.experiment import *
 from core.expert import *

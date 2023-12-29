@@ -5,5 +5,3 @@ input_type: 'image'
 replaybuffer_size: 500 # just need to be the max length of a trajectory for saving demonstrations
 train_frequency: 1 # how many environment iterations for a training iteration
 local_agent: False # whether to have local agents
-
- 

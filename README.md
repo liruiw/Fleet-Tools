@@ -1,6 +1,6 @@
 # Fleet-Tools
 
-[Arxiv](https://arxiv.org/abs/2310.01362)  [Website](https://liruiw.github.io/fleet/) 
+[Arxiv](https://arxiv.org/abs/2310.01362)  [Fleet-Merge Website](https://liruiw.github.io/fleet/) [Policy-Composition Website](https://liruiw.github.io/policycomp/) 
 
 This repo is the simulation environment benchmark built with Gym API and Drake simulations for Franka Panda. The repository features tool-use tasks with scripted experts.
 
@@ -12,7 +12,7 @@ This repo is the simulation environment benchmark built with Gym API and Drake s
 
 ## 🚶 Starting Commands
 0. These commands will use the hand-scripted joint-space kpam planner to plan for demonstration trajectories 
-1. Run ```bash experiments/running_scripts/frankahammer_tool_datacollection_test.sh```. open `local_host:6006`
+1. Run ```bash experiments/running_scripts/frankahammer_tool_datacollection_test_rgb.sh```. open `local_host:6006`
 2. Run `bash experiments/running_scripts/**_datacollection.sh` to generate the data. And export to the global python path such that the training repo `fleet_diffusion` can import it and run evaluation.
 
 ## 🚶 Simulation Teleop Demonstrations
@@ -54,7 +54,7 @@ MIT
 If you find Fleet-Tools useful in your research, please consider citing:
 ```
 @inproceedings{wang2023fleet,
-author    = {Lirui Wang, Kaiqing Zhang, Allen Zhou, Max Simchowitz, Russ Tedrake},
+author    = {Lirui Wang, Kaiqing Zhang, Allan Zhou, Max Simchowitz, Russ Tedrake},
 title     = {Fleet Policy Learning Via Weight Mering and An Application to Tool Use},
 booktitle = {Arxiv},
 year      = {2023}

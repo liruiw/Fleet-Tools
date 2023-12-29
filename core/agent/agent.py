@@ -29,10 +29,7 @@ class Agent(object):
         self.agent_id = agent_id
 
         self.log_freq = config.log_freq
-        self.batch_size = config.train.learn.minibatches
 
-        self.observation_space = gym.spaces.Box(low=-1, high=1, shape=config.train.numObservations)
-        self.action_space = PandaTaskSpace6D(*config.task.env.action_scale)  # action_space(config.task.env.numActions)
         self.config = config
         self.train_iter = 0
         self.train_time = 0
