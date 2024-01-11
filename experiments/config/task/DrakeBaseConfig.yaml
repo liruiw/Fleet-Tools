@@ -88,7 +88,7 @@ env:
     vis_keypoints: True  # visualize task keypoints
     vis_traj_keyframe: True # visualize task keyframe and goal tool pose
     debug_obs_image: False # debug network observation 
-    randomize_textures: True # domain randomize textures
+    randomize_textures: False # domain randomize textures
     history_force_buffer_length: 32 # the time horizon for past force sensory inputs
     average_history_wrench_buffer: True # act as a low-pass filter to process the history 
     use_point_cloud_model: True # use point cloud input
@@ -106,7 +106,7 @@ env:
     # domain randomization
     randomize_init_eff: False  # randomize initial end effector pose
     randomize_physics: False  # randomize friction etc 
-    randomize_tool_pose: True # randomize the relative pose of the tool
+    randomize_tool_pose: False # randomize the relative pose of the tool
     randomize_obj_pose: True # randomize the relative pose of the object 
 
     init_endeffector_range: [0.3, 0.5] # end effector distance to the object  [0.5, 0.7]

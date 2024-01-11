@@ -185,26 +185,26 @@ class ReplayMemory:
 
             np.savez(os.path.join(saved_path, "traj_data.npz"), **data)
 
-            # for i, img in enumerate(images):
-            #     overhead_img, wrist_img = img[..., :5], img[..., 5:]
-            #     cv2.imwrite(
-            #         f"{saved_path}/{i}_wrist_color.png",
-            #         (wrist_img[:, :, [2, 1, 0]] * 255).astype(np.uint8),
-            #     )
-            #     cv2.imwrite(
-            #         f"{saved_path}/{i}_wrist_depth.png",
-            #         (wrist_img[..., [3]] * 1000).astype(np.uint16),
-            #     )
-            #     cv2.imwrite(f"{saved_path}/{i}_wrist_mask.png", wrist_img[..., [4]])
-            #     cv2.imwrite(
-            #         f"{saved_path}/{i}_overhead_color.png",
-            #         (overhead_img[:, :, [2, 1, 0]] * 255).astype(np.uint8),
-            #     )
-            #     cv2.imwrite(
-            #         f"{saved_path}/{i}_overhead_depth.png",
-            #         (overhead_img[..., [3]] * 1000).astype(np.uint16),
-            #     )
-            #     cv2.imwrite(f"{saved_path}/{i}_overhead_mask.png", overhead_img[..., [4]])
+            for i, img in enumerate(images):
+                # import IPython; IPython.embed()
+                cv2.imwrite(
+                    f"{saved_path}/{i}_wrist_color.png",
+                    data["wrist_image"][i][..., [2, 1, 0]].astype(np.uint8),
+                )
+                # cv2.imwrite(
+                #     f"{saved_path}/{i}_wrist_depth.png",
+                #     (wrist_img[..., [3]] * 1000).astype(np.uint16),
+                # )
+                # cv2.imwrite(f"{saved_path}/{i}_wrist_mask.png", wrist_img[..., [4]])
+                cv2.imwrite(
+                    f"{saved_path}/{i}_overhead_color.png",
+                    data["overhead_image"][i][..., [2, 1, 0]].astype(np.uint8),
+                )
+                # cv2.imwrite(
+                #     f"{saved_path}/{i}_overhead_depth.png",
+                #     (overhead_img[..., [3]] * 1000).astype(np.uint16),
+                # )
+                # cv2.imwrite(f"{saved_path}/{i}_overhead_mask.png", overhead_img[..., [4]])
             return True
 
         except Exception as e:  # would be overwrite

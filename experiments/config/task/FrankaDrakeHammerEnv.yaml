@@ -10,6 +10,12 @@ defaults:
 env:
     init_object_x_range: [0.5, 0.7] #  0.4, 0.7
     randomize_textures: True
+    tool_rotation_x_range: [1.53, 1.53]
     # vis_keypoints: False
     # vis_traj_keyframe: False
- 
+    tool_translation_z_range: [0.06, 0.06] 
+    tool_rotation_y_range: [1.07, 1.57]
+    tool_rotation_x_range: [0.0, 0.0]
+    tool_translation_x_range: [0.0, 0.] 
+    tool_translation_y_range: [0.0, 0.0]
+    randomize_tool_pose: True
