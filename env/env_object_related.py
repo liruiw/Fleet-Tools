@@ -405,7 +405,10 @@ def AddHammerObject(
         collision=True,
     )
     box_body_frame = plant.GetBodyByName("box").body_frame()
-    bolt_pose = RigidTransform(RollPitchYaw(0, 0, 0), [0.56, 0.0, 0.2])  # 0.13
+    x = np.random.uniform(0.4, 0.6)
+    y = np.random.uniform(-0.1, 0.1)
+
+    bolt_pose = RigidTransform(RollPitchYaw(0, 0, 0), [x, y, 0.2])  # 0.13
 
     plant.WeldFrames(plant.world_frame(), box_body_frame, bolt_pose)
     bolt_joint = PrismaticJoint(
