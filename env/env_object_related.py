@@ -2,7 +2,7 @@ import numpy as np
 import os
 import warnings
 
-from core.utils.robot_internal_controller import RobotInternalController
+# ugly but saves lots of troubles
 from pydrake.all import *
 import warnings
 
@@ -11,10 +11,8 @@ warnings.simplefilter("ignore")
 import IPython
 from core.utils import *
 from env.meshcat_cpp_utils import *
-import time
 import json
 from colored import fg
-import gym
 
 screw_joint_ = None
 bolt_joint = None
@@ -107,6 +105,21 @@ def AddCameraBox(plant, X_WC, name="camera0", parent_frame=None):
 
 
 def AddShape(plant, shape, name, mass=1, mu=1, color=[0.5, 0.5, 0.9, 1.0], collision=True):
+    """
+    Adds a shape to the plant and returns the model instance.
+
+    Args:
+        plant (Plant): The plant to which the shape will be added.
+        shape (Shape): The shape to be added.
+        name (str): The name of the shape.
+        mass (float, optional): The mass of the shape. Defaults to 1.
+        mu (float, optional): The coefficient of friction. Defaults to 1.
+        color (list, optional): The color of the shape. Defaults to [0.5, 0.5, 0.9, 1.0].
+        collision (bool, optional): Whether to enable collision for the shape. Defaults to True.
+
+    Returns:
+        int: The model instance of the added shape.
+    """
     instance = plant.AddModelInstance(name)
     if isinstance(shape, Box):
         inertia = UnitInertia.SolidBox(shape.width(), shape.depth(), shape.height())
@@ -156,6 +169,19 @@ def AddShape(plant, shape, name, mass=1, mu=1, color=[0.5, 0.5, 0.9, 1.0], colli
 
 
 def LoadMeshFrom(parent_path, name, fixed_idx, info):
+    """
+    Load a mesh from the specified parent path, name, fixed index, and info.
+
+    Args:
+        parent_path (str): The parent path where the mesh is located.
+        name (str): The name of the mesh.
+        fixed_idx (int): The fixed index of the mesh.
+        info (str): Additional information for matching the instance.
+
+    Returns:
+        str: The path of the loaded mesh.
+
+    """
     object_paths = sorted(
         [os.path.join(parent_path, name, o, o + ".sdf") for o in os.listdir(os.path.join(parent_path, name))]
     )
@@ -281,7 +307,6 @@ def AddToolObjects(
         )
 
     parser = Parser(plant)
-    # obj_path = "assets/tool_obj"  # objects_sdf
     obj_path = "assets/tool_obj"  # objects_sdf
     info = "" if len(instance_info) == 0 else instance_info["object_name"]
     path = LoadMeshFrom(obj_path, tool_name, fixed_idx, info)

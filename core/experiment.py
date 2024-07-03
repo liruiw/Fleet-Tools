@@ -1,6 +1,5 @@
 import datetime
 import os
-import os.path as osp
 import numpy as np
 import cv2
 
@@ -9,19 +8,18 @@ import time
 from env import *
 from dotmap import DotMap
 import ray
-from tqdm import trange
-from core.agent.agent import Agent, AgentWrapper
 from collections import deque
 
 from core.utils import *
 from visdom import Visdom
-from core.expert.expert import AnalyticExpert
-from core.expert.human_expert import HumanExpert
 import copy
 import gc
 
 
 def parse_task(cfg):
+    """
+    Parses the task configuration and returns the corresponding environment.
+    """
     register_env(cfg.task.name)
     env = make_env(cfg.task.name, task_config=cfg.task)
     return env
@@ -171,12 +169,10 @@ class ActorWrapper:
 
         self.expert = self.get_expert()
         onpolicy_agent = self.agent if not self.config.run_expert else self.expert
-        context = self.env.export_context()
         info = ret[-1]
         scene_info = self.reset_task_episode(info)
 
         self.config.task.scene_info = scene_info
-
         rews = 0
         planned_success = 0
         self.local_episode += 1
@@ -241,6 +237,16 @@ class ActorWrapper:
         return episode_info, save_success
 
     def log_info(self, episode_info, scene_info, total_time, step, rews):
+        """
+        Logs information about the episode.
+
+        Args:
+            episode_info (dict): Dictionary containing episode information.
+            scene_info (dict): Dictionary containing scene information.
+            total_time (float): Total time taken for the episode.
+            step (int): Number of steps taken in the episode.
+            rews (float): Episode reward.
+        """
         episode_info["episode_length"] = step
         episode_info["local_episode_reward"] = rews
 

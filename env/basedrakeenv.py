@@ -29,6 +29,9 @@ class BaseDrakeRobotEnv(gym.Env):
         self.reset_from_scene_file = False
 
     def cleanup_meshcat(self):
+        """
+        Cleans up the meshcat visualization by hiding collision geometry and deleting visualizer objects and tools.
+        """
         # cleanup meshcat
         from env.env_util import meshcat
 

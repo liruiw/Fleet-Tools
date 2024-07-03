@@ -7,10 +7,6 @@ except:
     pass
 import numpy as np
 import os
-import sys
-import random
-
-import scipy.io as sio
 import IPython
 import time
 
@@ -22,15 +18,12 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import tabulate
 
-# import torch
-# import torch.nn.functional as F
 import shutil
 
 from .geometry import *
 from transforms3d.quaternions import *
 from transforms3d.euler import *
 from transforms3d.axangles import *
-import sys
 import gym
 import json
 
@@ -239,7 +232,21 @@ def randomize_sphere_lookat(target, near, far, x_near, x_far, theta_low=0, theta
     return target_pose
 
 
+import numpy as np
+
 def projection_to_intrinsics(mat, width=224, height=224):
+    """
+    Convert a projection matrix to intrinsic matrix.
+
+    Args:
+        mat (array-like): The projection matrix.
+        width (int, optional): The width of the image. Defaults to 224.
+        height (int, optional): The height of the image. Defaults to 224.
+
+    Returns:
+        array-like: The intrinsic matrix.
+
+    """
     intrinsic_matrix = np.eye(3)
     mat = np.array(mat).reshape([4, 4]).T
     fv = width / 2 * mat[0, 0]
@@ -255,6 +262,17 @@ def projection_to_intrinsics(mat, width=224, height=224):
 
 
 def backproject_camera_target(im_depth, K, target_mask=None):
+    """
+    Backprojects the camera target from the depth image.
+
+    Args:
+        im_depth (numpy.ndarray): The depth image.
+        K (numpy.ndarray): The camera intrinsic matrix.
+        target_mask (numpy.ndarray, optional): The mask indicating the target region. Defaults to None.
+
+    Returns:
+        numpy.ndarray: The backprojected camera target.
+    """
     Kinv = np.linalg.inv(K)
 
     width = im_depth.shape[1]
@@ -314,6 +332,18 @@ def write_video(
     target_name="",
     extra_text=None,
 ):
+    """
+    Writes a video file based on the given trajectory and scene file.
+
+    Args:
+        traj (list): List of images representing the trajectory.
+        scene_file (str): Path to the scene file.
+        expert_traj (list, optional): List of expert trajectory images. Defaults to None.
+        IMG_SIZE (tuple, optional): Size of the output video frames. Defaults to (112, 112).
+        output_dir (str, optional): Directory to save the output video. Defaults to "output_misc/".
+        target_name (str, optional): Name of the target. Defaults to "".
+        extra_text (str, optional): Additional text to add to the video frames. Defaults to None.
+    """
     ratio = 1 if expert_traj is None else 2
     video_writer = make_video_writer(
         os.path.join(
@@ -325,7 +355,6 @@ def write_video(
 
     for i in range(len(traj)):
         img = traj[i][..., :3] * 255
-        # cv2.resize(, (IMG_SIZE[:2]), interpolation = cv2.INTER_AREA)[..., [2, 1, 0]]
         if expert_traj is not None:
             idx = min(len(expert_traj) - 1, i)
             img = np.concatenate((img, expert_traj[idx][..., [2, 1, 0]]), axis=1)
@@ -397,9 +426,7 @@ def proj_point_img(
     offset_pose,
     points,
     color=(255, 0, 0),
-    vis=False,
     neg_y=False,
-    real_world=False,
 ):
     xyz_points = offset_pose[:3, :3].dot(points) + offset_pose[:3, [3]]
     if neg_y:

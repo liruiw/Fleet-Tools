@@ -4,8 +4,6 @@ import core.expert.kpam.SE3_utils as SE3_utils
 from env.env_util import *
 
 # The specification of optimization problem
-import core.expert.kpam.term_spec as term_spec
-import core.expert.kpam.mp_terms as mp_terms
 from core.expert.kpam.optimization_problem import OptimizationProblemkPAM, solve_kpam
 from core.expert.kpam.optimization_spec import OptimizationProblemSpecification
 from core.expert.kpam.mp_builder import OptimizationBuilderkPAM
@@ -58,7 +56,6 @@ class AnalyticExpert(TaskExpert):
         )
 
     def select_action(self, state, env_idx=0):
-        """the main calling function"""
         """select action for the current state, base on the env time and the solved trajectory"""
         s = time.time()
         if self.check_plan_empty() or self.check_replan():
@@ -119,19 +116,7 @@ class AnalyticExpert(TaskExpert):
     # tool use related
     def solve_kpam_joint(self, generate_traj=True):
         """solve the formulated kpam problem and get goal joint"""
-        s = time.time()
         self.env.get_obs(render=False)
-
-        # solve for the goal end effector pose to match keypoints
-        keypoint_loc = np.stack(
-            (
-                self.env.curr_tool_keypoint_head,
-                self.env.curr_tool_keypoint_tail,
-                self.env.curr_tool_keypoint_side,
-            ),
-            axis=0,
-        )
-
         keypoint_loc_in_hand = np.stack(
             (
                 self.env.tool_keypoint_head_in_hand,
@@ -214,6 +199,9 @@ class AnalyticExpert(TaskExpert):
         self.env.info["goal_pose"] = self.task_goal_hand_pose
 
     def set_plan(self, joint_plan):
+        """
+        Sets the joint plan for the expert.
+        """
         self.joint_traj_waypoints = joint_plan
         self.joint_space_traj = PiecewisePolynomial.CubicShapePreserving(
             self.dense_traj_times, np.array(self.joint_traj_waypoints).T
@@ -252,7 +240,6 @@ class AnalyticExpert(TaskExpert):
 
         # solve the standoff and the remaining pose use the goal as seed.
         # stitch the trajectory
-
         if res is not None:
             #  use the joint trajectory to build task trajectory
             self.joint_traj_waypoints = res.get_x_val().reshape(-1, 9)

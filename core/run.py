@@ -1,18 +1,13 @@
-import IPython
 import warnings
+warnings.simplefilter("ignore") # for drake
 
-warnings.simplefilter("ignore")
-
-import os.path as osp
 from core.experiment import *
 from core.expert import *
 from core.utils.utils import *
 
-from core.agent.agent import Agent, AgentWrapper
 from pydrake.all import RandomGenerator
 from collections import deque
 
-import IPython
 import numpy as np
 import GPUtil
 import psutil
@@ -116,7 +111,6 @@ def run_episode(robot):
         success = 0
 
         if robot.config.record_video and fleet_steps <= 5 and visualizer is not None:
-            # and fleet_steps % 10 == 0 might only work with one runner
             visualizer.StopRecording()
             visualizer.PublishRecording()
             html = meshcat.StaticHtml()

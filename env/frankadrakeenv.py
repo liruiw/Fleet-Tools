@@ -360,15 +360,19 @@ class FrankaDrakeEnv(BaseDrakeRobotEnv):
         self.empty_pointcloud_step = False
 
     def reset(self, done=False):
+        """
+        Resets the environment to its initial state. 
+        """
         self.init_context()
         self.object_pose = np.eye(4)
         self.tool_pose = np.eye(4)
         self.tool_rel_pose = np.eye(4)
 
         for _ in range(self.task_config.sim.warmstart_iter):
-            sim_done = self.advance_time(self.context)  #
-            if sim_done:  # terminate because of simulation error
+            sim_done = self.advance_time(self.context)
+            if sim_done:
                 return [], 0, True, self.info
+
         self.action = np.zeros(self.action_num)
         self._get_obs(self.context)
         obs = self.select_obs()
@@ -376,6 +380,12 @@ class FrankaDrakeEnv(BaseDrakeRobotEnv):
         return obs, reward, done, self.info
 
     def compute_state_obs(self):
+        """
+        Computes the state observation for the environment.
+
+        Returns:
+            numpy.ndarray: The concatenated state observation array.
+        """
         return np.concatenate(
             [
                 pack_pose(self.ee_pose.reshape(4, 4)),
@@ -420,6 +430,12 @@ class FrankaDrakeEnv(BaseDrakeRobotEnv):
         self.tool_keypoint_side = self.tool_keypoints[2]
 
     def transform_keypoints_env(self):
+        """
+        Transforms the keypoints of the tool and object based on their respective poses.
+
+        This method applies the transformation matrix of the tool and object poses to the keypoints
+        of the tool and calculates the new positions of the keypoints.
+        """
         self.curr_tool_keypoint_head = self.tool_pose[:3, :3].dot(self.tool_keypoint_head) + self.tool_pose[:3, 3]
         self.curr_tool_keypoint_tail = self.tool_pose[:3, :3].dot(self.tool_keypoint_tail) + self.tool_pose[:3, 3]
         self.curr_tool_keypoint_side = self.tool_pose[:3, :3].dot(self.tool_keypoint_side) + self.tool_pose[:3, 3]
@@ -723,14 +739,6 @@ class FrankaDrakeEnv(BaseDrakeRobotEnv):
                     if hasattr(self.task_config, "data_collection"):
                         print("reset!")
                         return self.reset()  # will count as failures
-
-        if hasattr(self.task_config, "save_dino_features") and self.task_config.save_dino_features:
-            # compute features
-            from misc.process_dino_features import extract_dino_v2_features
-
-            # overhead first
-            descriptors, features = extract_dino_v2_features(self.img_obs[0][..., :3], self.img_obs[0][..., [-1]])
-            self.info["img_feature"] = features[0]
 
         self.info["joint_pos"] = self.joint_positions
         self.info["ee_pose"] = self.ee_pose

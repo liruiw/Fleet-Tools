@@ -1,12 +1,9 @@
 from core.utils import *
-import json
 from env.env_util import *
 
 from colored import fg
-import IPython
 from core.expert.expert import *
-import cv2
-from env.env_util import meshcat, visualizer
+from env.env_util import meshcat
 
 ###############################################################################################
 # Human expert control
@@ -23,6 +20,9 @@ class HumanExpert(AnalyticExpert):
         self.teleop_cam_pose = None
 
     def select_controller(self, name="pose"):
+        """
+        Selects the controller based on the given name.
+        """
         if name == "pose":
             self.env.task_config.pose_controller = True
             self.env.controller_switch_port.FixValue(self.env.context, InputPortIndex(1))

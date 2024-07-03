@@ -696,7 +696,6 @@ def solve_ik_traj_with_standoff(
 ):
     """run a small trajopt on the trajectory with the solved IK from end-effector traj"""
     # make sure the beginning and the end do not get updated
-
     waypoint_num = len(waypoint_times)
     prog = MathematicalProgram()
     q = prog.NewContinuousVariables(9, waypoint_num)
@@ -1264,7 +1263,6 @@ def finalize_builder(
         wrist_cam_view = wrist_cam_view @ augment_noise_pose
 
         # one way to choose the overhead camera distribution is to shift it to some sphere that is x axis some distance away from the table center
-        rotation_offset = 0.1
         target_center = np.array([0.45, 0.0, 0.3])
         overhead_cam_view = randomize_sphere_lookat(
             target_center, near=1.5, far=2.5, x_near=0.7, x_far=1.5, theta_low=np.pi / 8, theta_high=np.pi / 4
@@ -1374,10 +1372,6 @@ def finalize_builder(
 
     state_logger = LogVectorOutput(differential_ik.get_output_port(), builder, 10.0)
     diagram = builder.Build()
-    # to draw the diagram
-    # pydot.graph_from_dot_data(diagram.GetGraphvizString())[0].write_svg("diagram.svg")
-    # pydot.graph_from_dot_data(controller_diagram.GetGraphvizString())[0].write_svg("controller_diagram.svg")
-
     diagram.set_name("ManipulationStation")
     return [
         builder,
@@ -1501,9 +1495,21 @@ def domain_randomization(scene_graph, inspector, plant, tool_info, tool_obj_info
 
 
 def update_tool_pose(tool_class_name, tool_info, randomize_tool_pose, task_config):
-    """domain randomze the tool pose"""
+    """
+    Update the tool pose based on domain randomization.
+
+    Args:
+        tool_class_name (str): The name of the tool class.
+        tool_info (list): Information about the tool.
+        randomize_tool_pose (bool): Flag indicating whether to randomize the tool pose.
+        task_config (TaskConfig): The task configuration.
+
+    Returns:
+        RigidTransform: The updated tool pose.
+
+    """
     tool_rel_pose = [[0, 0, 0], [0, 0, 0.15]]
-    # domain randoization
+    # domain randomization
     tool_name = tool_info[1]
 
     if randomize_tool_pose:
@@ -1536,6 +1542,17 @@ def update_tool_pose(tool_class_name, tool_info, randomize_tool_pose, task_confi
 
 
 def MakeManipulationStation(time_step=0.005, task_config=None, instance_info={}):
+    """
+    Creates a manipulation station for performing tasks.
+
+    Args:
+        time_step (float, optional): The time step for the simulation. Defaults to 0.005.
+        task_config (object, optional): The task configuration object. Defaults to None.
+        instance_info (dict, optional): Additional instance information. Defaults to {}.
+
+    Returns:
+        list: A list containing the finalized builder, model inspector, and other relevant objects.
+    """
     builder = DiagramBuilder()
     multibody_plant_config = MultibodyPlantConfig(time_step=time_step)
     plant, scene_graph = AddMultibodyPlant(multibody_plant_config, builder)

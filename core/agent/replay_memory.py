@@ -4,8 +4,6 @@ https://github.com/pranz24/pytorch-soft-actor-critic
 """
 import random
 import numpy as np
-from operator import itemgetter
-import IPython
 import ray
 from core.utils.utils import *
 import os
@@ -16,7 +14,7 @@ from env.env_util import color_print
 
 class ReplayMemory:
     """
-    Replay buffer class
+    Simple Replay buffer class
     """
 
     def __init__(self, capacity, seed, config):
@@ -26,7 +24,6 @@ class ReplayMemory:
         self.task_config = config.task
         self.train_config = config.train
 
-        # self.buffer = []
         for idx, key in enumerate(key_list):
             if key == "obs" and not self.task_config.env.use_image:
                 self.obs = np.zeros(self.capacity)
