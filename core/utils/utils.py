@@ -286,8 +286,6 @@ def backproject_camera_target(im_depth, K, target_mask=None):
     # backprojection
     R = Kinv.dot(x2d.transpose())  #
     X = np.multiply(np.tile(depth.reshape(1, width * height), (3, 1)), R)
-    # X[1] *= -1 # not sure if this is needed
-
     if target_mask is not None:
         target_mask = (depth != 0) * (target_mask.flatten() == 0)
         return X[:, target_mask]

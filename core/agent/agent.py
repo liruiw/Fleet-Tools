@@ -2,16 +2,10 @@
 # Licensed under The MIT License [see LICENSE for details]
 # --------------------------------------------------------
 
-import os
-
-import numpy as np
 from core.utils.utils import *
-import IPython
 import time
 from core.agent.replay_memory import ReplayMemory
-import os.path as osp
 import ray
-import gym
 
 
 # from core.utils.torch_utils import *

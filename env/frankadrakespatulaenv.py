@@ -49,18 +49,6 @@ class FrankaDrakeSpatulaEnv(FrankaDrakeEnv):
         self.terminate_mechanism()
         return obs, reward, done, self.info
 
-    def _get_obs(self, context, render=True):
-        super()._get_obs(context, render=render)
-        contact_results = self.contact_results
-
-        for i in range(contact_results.num_hydroelastic_contacts()):
-            contact_info_i = contact_results.hydroelastic_contact_info(i)
-            contact_surface = contact_info_i.contact_surface()
-            body_ia_index = contact_surface.id_M()
-            body_ib_index = contact_surface.id_N()  #
-            body_a_name = self.scene_inspector.GetName(body_ia_index)
-            body_b_name = self.scene_inspector.GetName(body_ib_index)
-
     def _get_reward(self, context, action):
         """spatula environment reward is based on if the object is lifted with the spatula"""
         obj_pose = self._get_object_pose(context)

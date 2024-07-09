@@ -1,8 +1,6 @@
-import gym
 import numpy as np
 from env.env_util import *
 from .frankadrakeenv import FrankaDrakeEnv
-import IPython
 from core.utils import *
 
 

@@ -77,12 +77,6 @@ class AnalyticExpert(TaskExpert):
         extra = {"reset": self.check_plan_empty() and not self.expert_differentialIK}
         return self.get_action(), extra
 
-    def calculate_distance_from_expert_plan(self):
-        """compute the distance from the current environment state from what the expert plan is"""
-        target_pose = self.task_space_traj.value(self.env.time)
-        curr_state = self.env.ee_pose.reshape(4, 4)
-        # compute point distance from the current and the target states
-
     def create_opt_problem(self, optimization_spec):
         """create a keypoint optimization problem from the current keypoint state"""
         if len(self.env.task_config.overwrite_kpam_config_file) > 0:

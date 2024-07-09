@@ -155,8 +155,8 @@ class ReplayMemory:
         prev_episode_idx = np.where(self.episode_positions[: self.position] == episode_idx)[0]
 
         # skip the first episode due to boundary issues
-        # print(prev_episode_idx)
-        if len(prev_episode_idx) == 0 or prev_episode_idx[0] == 0 or prev_episode_idx[-1] == self.capacity - 1:
+        if len(prev_episode_id        # print(prev_episode_idx)
+x) == 0 or prev_episode_idx[0] == 0 or prev_episode_idx[-1] == self.capacity - 1:
             # check the last episode step and first episode step
             print("skip empty traj")
             return False
@@ -164,7 +164,6 @@ class ReplayMemory:
         saved_path = os.path.join(saved_path, "episode_{}".format(episode_idx))
         mkdir_if_missing(saved_path)
 
-        # IPython.embed()
         color_print(
             (f"saving episode {prev_episode_idx} | path: {saved_path}"),
             "light_slate_blue",
@@ -176,32 +175,19 @@ class ReplayMemory:
             images = self.obs[prev_episode_idx]
             data = {k: getattr(self, k)[prev_episode_idx] for k in key_list if k != "obs"}
             data["episode_positions"] = self.episode_positions
-            # print("obs shape:", data["obs"].shape)
-            # data["overhead_image"] = data["obs"][...,:5]
             data["obs"] = [f"{saved_path}/{i}" for i in range(len(prev_episode_idx))]
 
             np.savez(os.path.join(saved_path, "traj_data.npz"), **data)
 
             for i, img in enumerate(images):
-                # import IPython; IPython.embed()
                 cv2.imwrite(
                     f"{saved_path}/{i}_wrist_color.png",
                     data["wrist_image"][i][..., [2, 1, 0]].astype(np.uint8),
                 )
-                # cv2.imwrite(
-                #     f"{saved_path}/{i}_wrist_depth.png",
-                #     (wrist_img[..., [3]] * 1000).astype(np.uint16),
-                # )
-                # cv2.imwrite(f"{saved_path}/{i}_wrist_mask.png", wrist_img[..., [4]])
                 cv2.imwrite(
                     f"{saved_path}/{i}_overhead_color.png",
                     data["overhead_image"][i][..., [2, 1, 0]].astype(np.uint8),
                 )
-                # cv2.imwrite(
-                #     f"{saved_path}/{i}_overhead_depth.png",
-                #     (overhead_img[..., [3]] * 1000).astype(np.uint16),
-                # )
-                # cv2.imwrite(f"{saved_path}/{i}_overhead_mask.png", overhead_img[..., [4]])
             return True
 
         except Exception as e:  # would be overwrite
